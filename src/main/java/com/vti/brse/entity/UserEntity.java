@@ -21,6 +21,9 @@ public class UserEntity {
     private String email;
 
     @NotNull
+    private String fullName;
+
+    @NotNull
     @NotBlank
     @Size(min = 6, max = 12)
     private String password;
