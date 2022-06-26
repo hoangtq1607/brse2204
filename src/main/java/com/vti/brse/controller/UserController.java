@@ -15,6 +15,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //This is new line
     @GetMapping
     public List<UserEntity> findAllUsers() {
         return userService.findAllUsers();
