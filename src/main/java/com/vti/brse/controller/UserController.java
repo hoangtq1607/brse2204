@@ -3,6 +3,8 @@ package com.vti.brse.controller;
 import com.vti.brse.entity.UserEntity;
 import com.vti.brse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +19,23 @@ public class UserController {
 
     //This is new line
     @GetMapping
-    public List<UserEntity> findAllUsers() {
-        return userService.findAllUsers();
+    public Page<UserEntity> findAllUsers(Pageable pageable) {
+        return userService.findAllUsers(pageable);
     }
 
     @GetMapping("/{userId}")
     public Optional<UserEntity> findUserById(@PathVariable Integer userId) {
         return userService.findUserById(userId);
+    }
+
+    @GetMapping("/email/{email}")
+    public List<UserEntity> findUserById(@PathVariable String email) {
+        return userService.findAllUsersByEmail(email);
+    }
+
+    @GetMapping("/login")
+    public List<UserEntity> findUserById(@RequestParam String email, @RequestParam String password) {
+        return userService.login(email, password);
     }
 
     @PostMapping
