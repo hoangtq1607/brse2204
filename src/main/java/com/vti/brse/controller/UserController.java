@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,12 +40,12 @@ public class UserController {
     }
 
     @PostMapping
-    public UserEntity addUser(@RequestBody UserEntity user) {
+    public UserEntity addUser(@RequestBody @Valid UserEntity user) {
         return userService.addUser(user);
     }
 
     @PutMapping("/{userId}")
-    public Optional<UserEntity> updateUser(@PathVariable Integer userId, @RequestBody UserEntity user) {
+    public Optional<UserEntity> updateUser(@PathVariable Integer userId, @RequestBody @Valid UserEntity user) {
 
         return userService.updateUser(userId, user);
 

@@ -1,9 +1,9 @@
 package com.vti.brse.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,10 +16,16 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Email
+    @NotNull
     private String email;
 
+    @NotNull
+    @NotBlank
+    @Size(min = 6, max = 12)
     private String password;
 
+    @NotNull
     private LocalDate birthDay;
 
     private LocalDateTime createdDate;
