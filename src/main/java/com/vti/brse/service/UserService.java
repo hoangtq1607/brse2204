@@ -1,6 +1,8 @@
 package com.vti.brse.service;
 
 import com.vti.brse.entity.UserEntity;
+import com.vti.brse.entity.UserHistoryEntity;
+import com.vti.brse.repository.UserHistoryRepository;
 import com.vti.brse.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserHistoryRepository userHistoryRepository;
 
     public Page<UserEntity> findAllUsers(Pageable pageable) {
         return userRepository.findAllByOrderByCreatedDateDesc(pageable);
@@ -43,11 +48,26 @@ public class UserService {
 
         return userRepository.findById(userId)
                 .map(dbUser -> {
+                    saveHistory(dbUser);
                     dbUser.setEmail(user.getEmail());
                     dbUser.setPassword(user.getPassword());
                     dbUser.setBirthDay(user.getBirthDay());
+                    dbUser.setFullName(user.getFullName());
                     return userRepository.save(dbUser);
                 });
+
+    }
+
+    void saveHistory(UserEntity userEntity) {
+
+        UserHistoryEntity history = new UserHistoryEntity();
+        history.setUser(userEntity);
+        history.setEmail(userEntity.getEmail());
+        history.setPassword(userEntity.getPassword());
+        history.setBirthDay(userEntity.getBirthDay());
+        history.setFullName(userEntity.getFullName());
+        history.setCreatedDate(LocalDateTime.now());
+        userHistoryRepository.save(history);
 
     }
 
@@ -55,5 +75,8 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public List<UserHistoryEntity> showHistory(Integer userId) {
+        return userHistoryRepository.findByUserIdOrderByIdDesc(userId);
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.vti.brse.controller;
 
 import com.vti.brse.entity.UserEntity;
+import com.vti.brse.entity.UserHistoryEntity;
 import com.vti.brse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,11 @@ public class UserController {
     @GetMapping("/email/{email}")
     public Page<UserEntity> findUserById(@PathVariable String email, Pageable pageable) {
         return userService.findAllUsersByEmail(email, pageable);
+    }
+
+    @GetMapping("/history/{userId}")
+    public List<UserHistoryEntity> getHistoryOfUser(@PathVariable Integer userId) {
+        return userService.showHistory(userId);
     }
 
     @GetMapping("/login")
