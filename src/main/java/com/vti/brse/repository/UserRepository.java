@@ -12,6 +12,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     Page<UserEntity> findByEmailLike(String email, Pageable pageable);
 
+    Page<UserEntity> findAllByOrderByCreatedDateDesc( Pageable pageable);
+
+
     List<UserEntity> findByEmailAndPassword(String email, String password);
 
     List<UserEntity> findByCreatedDateLessThanEqualOrderByCreatedDateDesc(LocalDate date);

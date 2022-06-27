@@ -20,7 +20,27 @@ $(function () {
         $(e.target).parent().addClass('active')
 
     });
+    $("#add-form").submit(function (event) {
+        event.preventDefault();
+        let $form = $(this);
+        let data = getFormData($form);
+        console.log(data);
 
+        $.ajax({
+            type: 'post',
+            url: '/api/v1/users',
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            success: function (response) {
+                console.log(response)
+                alert("Thêm thành công");
+                changePage(pageable);
+                $('#exampleModal').modal('hide');
+            }
+        });
+
+    });
 })
 
 function deleteUser(userId) {
@@ -66,4 +86,15 @@ function searchUsers() {
             renderListUser(data)
         })
     }
+}
+
+function getFormData($form) {
+    let unindexed_array = $form.serializeArray();
+    let indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
 }

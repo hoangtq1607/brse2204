@@ -18,7 +18,7 @@ public class UserService {
     UserRepository userRepository;
 
     public Page<UserEntity> findAllUsers(Pageable pageable) {
-        return userRepository.findAll(pageable);
+        return userRepository.findAllByOrderByCreatedDateDesc(pageable);
     }
 
     public List<UserEntity> login(String email, String password) {
