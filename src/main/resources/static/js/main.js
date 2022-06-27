@@ -127,4 +127,11 @@ function updateUser(user) {
     $('#update-form input[name="birthDay"]').val(user.birthDay);
     $('#update-form input[name="userId"]').val(user.id);
 
+    $.get('/api/v1/users/history/' + user.id, function (histories) {
+        let html = "";
+        histories.forEach(history => {
+            html += `- ${history.createdDate}_${history.email}_${history.fullName}_${history.birthDay} <br>`
+        })
+        $("#history-log").html(html);
+    })
 }

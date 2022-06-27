@@ -1,5 +1,6 @@
 package com.vti.brse.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -27,5 +28,6 @@ public class UserHistoryEntity {
 
     private LocalDate birthDay;
 
+    @JsonFormat(pattern = "yy-MM-dd-HH:mm")
     private LocalDateTime createdDate;
 }
