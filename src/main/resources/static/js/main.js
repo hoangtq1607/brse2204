@@ -1,8 +1,10 @@
+let pageable = {
+    page: 0,
+    size: 10
+}
+
 $(function () {
-    let pageable = {
-        page: 0,
-        size: 10
-    }
+
     changePage(pageable);
 
     $('ul.pagination li a').on('click', function (e) {
@@ -21,6 +23,20 @@ $(function () {
 
 })
 
+function deleteUser(userId) {
+    let isOk = confirm("Bạn có chắc chắn xoá user này không?");
+    if (isOk) {
+        $.ajax({
+            url: '/api/v1/users/' + userId,
+            type: 'DELETE',
+            success: function(result) {
+                alert("Đã xoá thành công")
+                changePage(pageable);
+            }
+        });
+    }
+}
+
 function changePage(pageable) {
     $.get('/api/v1/users', pageable, function (data) {
         let html = '';
@@ -30,6 +46,9 @@ function changePage(pageable) {
             <td>${item.email}</td>
             <td>${item.birthDay}</td>
             <td>${item.createdDate}</td>
+            <td>
+                <button class="btn btn-sm btn-danger" onclick="deleteUser(${item.id})">Xoá</button> 
+            </td>
         </tr>`;
         })
         $("#user-data").html(html);
