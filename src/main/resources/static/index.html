@@ -11,7 +11,14 @@
 <body>
 <div class="container">
     <h3>Danh sách user</h3>
-
+    <div class="mb-3 row">
+        <div class="col-6">
+            <input type="text" name="email" id="txt-find-email" placeholder="Tìm kiếm theo email..." class="form-control">
+        </div>
+        <div class="col-6">
+            <button class="btn btn-primary" onclick="searchUsers()">Tìm</button>
+        </div>
+    </div>
     <table class="table">
         <tr>
             <th>ID</th>

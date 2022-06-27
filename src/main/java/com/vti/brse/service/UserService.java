@@ -25,8 +25,8 @@ public class UserService {
         return userRepository.findByEmailAndPassword(email, password);
     }
 
-    public List<UserEntity> findAllUsersByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public Page<UserEntity> findAllUsersByEmail(String email, Pageable pageable) {
+        return userRepository.findByEmailLike("%" + email + "%", pageable);
     }
 
     public Optional<UserEntity> findUserById(Integer userId) {

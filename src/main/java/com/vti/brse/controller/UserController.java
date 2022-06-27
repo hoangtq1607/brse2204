@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/email/{email}")
-    public List<UserEntity> findUserById(@PathVariable String email) {
-        return userService.findAllUsersByEmail(email);
+    public Page<UserEntity> findUserById(@PathVariable String email, Pageable pageable) {
+        return userService.findAllUsersByEmail(email, pageable);
     }
 
     @GetMapping("/login")
