@@ -18,7 +18,10 @@ public class UserEntity {
 
     @Email
     @NotNull
+    @Column(unique = true)
     private String email;
+
+    private String phoneNumber;
 
     @NotNull
     private String fullName;

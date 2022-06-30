@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
     Page<UserEntity> findAllByOrderByCreatedDateDesc( Pageable pageable);
 
+    UserEntity findByEmailOrPhoneNumber(String email, String phoneNumber);
 
     List<UserEntity> findByEmailAndPassword(String email, String password);
 
